@@ -32,7 +32,34 @@
       <v-toolbar-title>Application</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn v-if="isLogin">웰컴</v-btn>
+      <v-menu v-if="isLogin"
+        top
+        :close-on-click="closeOnClick"
+      >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="primary"
+          dark
+          v-bind="attrs"
+          v-on="on"
+          flat
+          icon
+        >
+        버튼
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item router :to="{name: 'mypage'}">
+          <v-list-item-title>마이페이지</v-list-item-title>
+        </v-list-item>
+        <v-list-item
+          @click="$store.dispatch('logout')"
+        >
+          <v-list-item-title>로그아웃</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
         <v-btn v-else router :to="{name: 'login'}">로그인</v-btn>
       </v-toolbar-items>
     </v-app-bar>
@@ -50,6 +77,7 @@ import { mapState } from 'vuex'
     data: () => ({
       drawer: false,
       group: null,
+      closeOnClick: true,
     }),
     computed: {
       ...mapState(["isLogin"])
