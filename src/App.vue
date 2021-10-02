@@ -16,8 +16,11 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item>
 
-          <v-list-item router :to="{name: 'login'}">
+          <v-list-item v-if="isLogin === false" router :to="{name: 'login'}">
             <v-list-item-title>Login</v-list-item-title>
+          </v-list-item>
+          <v-list-item v-if="isLogin === true" router :to="{name: 'mypage'}">
+            <v-list-item-title>Mypage</v-list-item-title>
           </v-list-item>
         </v-list-item-group>
       </v-list>
