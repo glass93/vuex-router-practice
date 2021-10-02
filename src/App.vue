@@ -27,6 +27,11 @@
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Application</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn v-if="isLogin">웰컴</v-btn>
+        <v-btn v-else router :to="{name: 'login'}">로그인</v-btn>
+      </v-toolbar-items>
     </v-app-bar>
 
     <v-main>
@@ -36,11 +41,16 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
   export default {
     data: () => ({
       drawer: false,
       group: null,
     }),
+    computed: {
+      ...mapState(["isLogin"])
+    },
     watch: {
       group () {
         this.drawer = false
